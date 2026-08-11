@@ -10,12 +10,25 @@
             font-family:'Poppins',sans-serif;
         }
         header{
-            position:sticky;
+            position:fixed;
             top:0;
-            background:#222;
-            padding:8px 30px;
+            left: 0;
+            width: 100%;
+            background:rgba(0, 0, 0, 0.78);
+            backdrop-filter:blur(5px);
+            padding:12px 30px;
             z-index:1000;
-            font-weight: 550;
+            font-weight:550;
+            transition:all 0.3s ease;
+        }
+
+        header.scrolled{
+            padding:2px 30px;
+        }
+
+        header.scrolled .logo img{
+            height:44px;
+            width:44px;
         }
         .navbar{
             display:flex;
@@ -36,14 +49,14 @@
             transition:0.3s;
         }
         .navbar a:hover{
-            color:#ffd700;
+            color:#c9a84c;
         }
         .logo{
             margin:0 60px;
         }
         .logo img{
-            height:55px;
-            width:55px;
+            height:60px;
+            width:60px;
             border-radius:50%;
             transition:0.3s;
         }
@@ -54,35 +67,37 @@
             margin-left:auto;
         }
         .login-btn{
-            background:#ffd700;
-            color:black !important;
+            background:#222;
+            border: 2px solid #c9a84c;
+            color:white !important;
             padding:10px 25px;
-            border-radius:6px;
+            border-radius:15px;
             font-weight:600;
         }
         .login-btn:hover{
-            background:white;
+            background:#c9a84c;
         }
         a:active{
-            text-decoration:underline #ffd700;
+            text-decoration:underline #c9a84c;
         }
     </style>
 </head>
 <body>
-    <header>
+    <header class="header">
         <nav class="navbar">
             <div class="nav-left">
                 <a href="index.php">Home</a>
-                <a href="about.php">About</a>
-                <a href="games.php">Games</a>
-                <a href="booking.php">Booking</a>
+                <a href="index.php#about">About</a>
+                <a href="index.php#games">Games</a>
+                <a href="index.php#Console">Console</a>
             </div>
             <div class="logo">
                 <a href="index.php">
-                    <img src="logo.png" alt="Namuz PlayStation">
+                    <img src="images/logo.png" alt="Namuz PlayStation">
                 </a>
             </div>
             <div class="nav-right">
+                <a href="booking.php">Booking</a>
                 <a href="tournaments.php">Tournament</a>
                 <a href="contact.php">Contact</a>
             </div>
@@ -91,5 +106,15 @@
             </div>
         </nav>
     </header>
+    <script>
+const header = document.querySelector('.header');
+window.addEventListener('scroll', () => {
+    if(window.scrollY > 50){
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+</script>
 </body>
 </html>

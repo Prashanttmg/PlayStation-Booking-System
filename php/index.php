@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namuz PlayStation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+    <?php include 'header.php'; ?>
+    <section class="landing">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="line"></div>
+            <h1>NAMUZ PLAYSTATION</h1>
+            <p>PREMIUM GAMING & TOURNAMENT CENTER</p>
+            <div class="GameButton">
+                <a href="index.php#games"><button>EXPLORE OUR GAMES</button></a>
+            </div>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="images/about1.jpg" alt="About">
+            </div>
+            <div class="about-text">
+                <h2>ABOUT US</h2>
+                <p>
+                    Namuz PlayStation is a modern gaming zone where gamers can enjoy
+                    the latest PlayStation titles in a comfortable environment.
+                    We offer online booking, tournaments and premium gaming setups.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="games-section" id="games">
+        <h2 class="games-title">POPULAR GAMES</h2>
+        <div class="games-grid">
+            <img src="images/fc26.jpg" alt="FC 26">
+            <img src="images/gta5.jpg" alt="GTA V">
+            <img src="images/2k25.jpg" alt="WWE 2K25">
+            <img src="images/god.jpg" alt="God of War">
+            <img src="images/bat.jpg" alt="Batman Arkham">
+            <img src="images/dmc.jpg" alt="Devil May Cry">
+            <img src="images/COD.jpg" alt="Call of Duty">
+            <img src="images/tekken.jpg" alt="Tekken 7">
+            <img src="images/resident.jpg" alt="Resident Village">
+            <img src="images/nfs.jpg" alt="Need for Speed">
+            <img src="images/skate.jpg" alt="Call of Duty">
+            <img src="images/uncharted.jpg" alt="Call of Duty">
+            <img src="images/RL.jpg" alt="Call of Duty">
+            <img src="images/fortnite.jpg" alt="Call of Duty">
+            <img src="images/fall.jpg" alt="Call of Duty">
+            <img src="images/ghost.jpg" alt="Call of Duty">
+        </div>
+    </section>
+    <section class="console-section" id="Console">
+        <h2 class="console-title">CONSOLE YOU CAN ENJOY</h2>
+        <div class="console-container">
+            <div class="console-card">
+                <img src="images/ps5.jpg" alt="PS 5">
+                <div class="console-info">
+                    <h3>PS 5</h3>
+                    <p>Next-generation PlayStation console with immersive gaming experiences.</p>
+                </div>
+            </div>
+            <div class="console-card">
+                <img src="images/ps4.jpg" alt="PS 4">
+                <div class="console-info">
+                    <h3>PS 4</h3>
+                    <p>Powerful console for stunning graphics and immersive gameplay.</p>
+                </div>
+            </div>
+            <div class="console-card">
+                <img src="images/ps3.avif" alt="PS 3">
+                <div class="console-info">
+                    <h3>PS 3</h3>
+                    <p>Classic PlayStation console with a wide selection of games.</p>
+                </div>
+            </div>
+            <div class="console-card">
+                <img src="images/nintendo.jpg" alt="Nintendo Switch">
+                <div class="console-info">
+                    <h3>Nintendo Switch</h3>
+                    <p>Portable gaming console with versatile play options.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php include 'footer.php'; ?>
+</body>
+</html>
