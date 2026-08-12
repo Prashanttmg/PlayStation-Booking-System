@@ -31,21 +31,19 @@ if(isset($_POST['login'])){
         }
         #main{
             display:flex;
-            width:75vw;
-            min-height:75vh;
-            height: auto;
-            margin:60px auto;
+            width:70vw;
+            height:auto;
+            min-height:60vh;
+            margin:80px auto 40px auto;
             background:#1b1b1b;
             border-radius:15px;
             overflow:hidden;
-            box-shadow:0 0 30px rgba(201,168,76,0.2);
+            box-shadow:0 0 20px rgba(201,168,76,0.15);
         }
-
         #left{
-            width:50%;
+            width:60%;
             position:relative;
         }
-
         #left img{
             width:100%;
             height:100%;
@@ -60,46 +58,45 @@ if(isset($_POST['login'])){
 
         .overlay-text h2{
             color:#fff;
-            font-size:32px;
-            margin-bottom:10px;
+            font-size:24px;
+            
         }
 
         .overlay-text p{
             color:#c9a84c;
-            font-size:18px;
+            font-size:15px;
         }
         #right{
-            width:50%;
-            padding:50px;
+            width:40%;
+            padding:30px 40px;
             background:#1b1b1b;
             color:#e6e1d5;
-            overflow-y:auto;
         }
 
         #logo{
-            width:70px;
-            height:70px;
+            width:55px;
+            height:55px;
             border-radius:50%;
-            margin-bottom:15px;
+            margin-bottom:10px;
         }
-
         h2{
             color:#c9a84c;
-            font-size:40px;
-            margin-bottom:10px;
+            font-size:28px;
+            margin:10px 0;
         }
 
         label{
             display:block;
-            margin-top:20px;
-            margin-bottom:8px;
+            margin-top:12px;
+            margin-bottom:5px;
             font-weight:600;
+            font-size:14px;
         }
 
         input[type="email"],
         input[type="password"]{
             width:90%;
-            padding:14px;
+            padding:10px;
             background:#111;
             border:1px solid #333;
             border-radius:5px;
@@ -108,19 +105,19 @@ if(isset($_POST['login'])){
 
         #check{
             width:auto;
-            margin-top:20px;
+            margin-top:12px;
             margin-right:8px;
         }
 
         button{
             width:90%;
-            padding:14px;
-            margin-top:25px;
+            padding:12px;
+            margin-top:15px;
             border:none;
             border-radius:5px;
             background:#c9a84c;
             color:black;
-            font-size:16px;
+            font-size:15px;
             font-weight:bold;
             cursor:pointer;
             transition:0.3s;
@@ -152,7 +149,7 @@ if(isset($_POST['login'])){
             <img src="images/about.jpg" alt="Gaming Zone">
             <div class="overlay-text">
                 <h2>NAMUZ PLAYSTATION</h2>
-                <p>Play • Compete • Win</p>
+                <p>Play • laugh • Enjoy</p>
             </div>
         </div>
         <div id="right" enctype="multipart/form-data">
@@ -163,7 +160,7 @@ if(isset($_POST['login'])){
                 <label for="Email">Email Address</label> 
                 <input type="email" name="email" placeholder="Enter your email">
                 <br>
-                <label for="Password">Password</label><br>
+                <label for="Password">Password</label>
                 <input type="password" name="password" placeholder="Enter your password"><br>
                 <input type="checkbox" name="remember" id="check">Remember me <br>
                 <button name="login" id="login">Login</button>

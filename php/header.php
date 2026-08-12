@@ -23,7 +23,7 @@
         }
 
         header.scrolled{
-            padding:2px 30px;
+            padding:4px 35px;
         }
 
         header.scrolled .logo img{
