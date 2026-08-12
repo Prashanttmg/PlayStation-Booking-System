@@ -3,18 +3,36 @@ session_start();
 include 'config.php';
 
 if(isset($_POST['login'])){
+
     $Email = $_POST['email'];
     $Password = $_POST['password'];
 
-    $sql = "SELECT * FROM user WHERE Email='$Email' AND Password='$Password'";
+    $sql = "SELECT UserID, FullName, Role
+        FROM user
+        WHERE Email='$Email'
+        AND Password='$Password'";
+
     $result = mysqli_query($conn,$sql);
 
-    if(mysqli_num_rows($result) > 0) {
-        $_SESSION['login']='TRUE';
-        header("Location: dashboard.php");
+    if(mysqli_num_rows($result) > 0){
+
+        $row = mysqli_fetch_assoc($result);
+
+        $_SESSION['UserID'] = $row['UserID'];
+        $_SESSION['Name'] = $row['FullName'];
+        $_SESSION['Role'] = $row['Role'];
+
+        if($row['Role'] == 'admin'){
+            header("Location: admin_dashboard.php");
+        }
+        else{
+            header("Location: index.php");
+        }
+
         exit();
+
     } else {
-        echo "Invalid Login";
+        echo "<script>alert('Invalid Login');</script>";
     }
 }
 ?>

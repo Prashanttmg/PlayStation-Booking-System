@@ -1,5 +1,8 @@
-<!DOCTYPE html>
-<html>
+<?php
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
+?>
 <head>
     <style>
         *{
@@ -80,6 +83,43 @@
         a:active{
             text-decoration:underline #c9a84c;
         }
+        .user-menu{
+            position:relative;
+            display:inline-block;
+        }
+        .user-btn{
+            background:none;
+            border:2px solid #c9a84c;
+            color:white;
+            padding:10px 20px;
+            border-radius:25px;
+            cursor:pointer;
+            font-size:16px;
+        }
+        .dropdown{
+            display:none;
+            position:absolute;
+            right:0;
+            top:50px;
+            background:#1b1b1b;
+            min-width:180px;
+            border-radius:8px;
+            overflow:hidden;
+            box-shadow:0 0 10px rgba(0,0,0,0.5);
+        }
+        .dropdown a{
+            display:block;
+            padding:12px 15px;
+            color:white;
+            text-decoration:none;
+        }
+        .dropdown a:hover{
+            background:#c9a84c;
+            color:black;
+        }
+        .user-menu:hover .dropdown{
+            display:block;
+        }
     </style>
 </head>
 <body>
@@ -97,12 +137,36 @@
                 </a>
             </div>
             <div class="nav-right">
-                <a href="booking.php">Booking</a>
+                <?php
+                if(isset($_SESSION['UserID'])){
+                ?>
+                    <a href="booking.php">Booking</a>
+                <?php
+                }else{
+                ?>
+                    <a href="login.php">Booking</a>
+                <?php
+                }
+                ?>
                 <a href="tournaments.php">Tournament</a>
                 <a href="contact.php">Contact</a>
             </div>
             <div class="login">
+                <?php if(isset($_SESSION['UserID'])){ ?>
+                <div class="user-menu">
+                    <button class="user-btn">
+                        👤 <?php echo $_SESSION['Name']; ?>
+                    </button>
+
+                    <div class="dropdown">
+                        <a href="booking.php">Book Now</a>
+                        <a href="my_booking.php">My Bookings</a>
+                        <a href="logout.php">Logout</a>
+                    </div>
+                </div>
+                <?php } else { ?>
                 <a href="login.php" class="login-btn">Login</a>
+                <?php } ?>
             </div>
         </nav>
     </header>
@@ -117,4 +181,3 @@ window.addEventListener('scroll', () => {
 });
 </script>
 </body>
-</html>

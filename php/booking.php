@@ -1,5 +1,33 @@
-<?php include 'header.php'; ?>
+<?php
+session_start();
+include 'config.php';
 
+if(!isset($_SESSION['UserID'])){
+    header("Location: login.php");
+    exit();
+}
+
+if(isset($_POST['book'])){
+
+    $userid = $_SESSION['UserID'];
+    $console_id = $_POST['console_id'];
+    $booking_date = $_POST['booking_date'];
+    $start_time = $_POST['start_time'];
+    $duration = $_POST['duration'];
+
+    $sql = "INSERT INTO booking
+            (UserID, ConsoleID, BookingDate, StartTime, Duration)
+            VALUES
+            ('$userid','$console_id','$booking_date','$start_time','$duration')";
+
+    if(mysqli_query($conn,$sql)){
+        echo "<script>alert('Booking Successful');</script>";
+    }else{
+        echo "<script>alert('Booking Failed');</script>";
+    }
+}
+?>
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +41,7 @@
 
         .booking-container{
             width:60%;
-            margin:50px auto;
+            margin:120px auto 50px auto;
             background:#1b1b1b;
             padding:40px;
             border-radius:10px;
@@ -54,44 +82,93 @@
         button:hover{
             opacity:0.9;
         }
+        .booking-content{
+            display:flex;
+            gap:30px;
+            align-items:center;
+        }
+        .form-section{
+            width:55%;
+        }
+        .image-section{
+            width:45%;
+        }
+        .image-section img{
+            width:100%;
+            height:350px;
+            object-fit:cover;
+            border-radius:10px;
+            border:2px solid #c9a84c;
+        }
     </style>
 </head>
 <body>
 
 <div class="booking-container">
-
     <h2>BOOK YOUR SESSION</h2>
-
     <form action="" method="POST">
 
-        <label>Console</label>
-        <select name="console">
-            <option>PS5</option>
-            <option>PS4</option>
-            <option>Nintendo Switch</option>
-        </select>
+    <div class="booking-content">
 
-        <label>Date</label>
-        <input type="date" name="booking_date">
+        <div class="form-section">
 
-        <label>Time Slot</label>
-        <select name="time_slot">
-            <option>10:00 AM - 11:00 AM</option>
-            <option>11:00 AM - 12:00 PM</option>
-            <option>12:00 PM - 1:00 PM</option>
-            <option>1:00 PM - 2:00 PM</option>
-            <option>2:00 PM - 3:00 PM</option>
-        </select>
+            <label>Select Console</label>
+            <select name="console_id" id="consoleSelect" onchange="changeConsoleImage()">
+                <option value="1">Console 1 - PS5</option>
+                <option value="2">Console 2 - PS5</option>
+                <option value="3">Console 3 - PS4</option>
+                <option value="4">Console 4 - PS5</option>
+                <option value="5">Console 5 - PS3 / Nintendo</option>
+            </select>
 
-        <label>Number of Players</label>
-        <input type="number" name="players" min="1" max="4">
+            <label>Date</label>
+            <input type="date" name="booking_date" required>
 
-        <button type="submit" name="book">Book Now</button>
+            <label>Start Time</label>
+            <select name="start_time" required>
+                <option value="10:00:00">10:00 AM</option>
+                <option value="11:00:00">11:00 AM</option>
+                <option value="12:00:00">12:00 PM</option>
+                <option value="13:00:00">1:00 PM</option>
+                <option value="14:00:00">2:00 PM</option>
+            </select>
 
-    </form>
+            <label>Duration (hours)</label>
+            <input type="number" name="duration" min="1" max="4" required>
 
+            <button type="submit" name="book">Book Now</button>
+
+        </div>
+
+        <div class="image-section">
+            <img id="consoleImage" src="images/tv1.jpg" alt="console Setup">
+        </div>
+    </div>
+</form>
 </div>
+<script>
+function changeConsoleImage(){
 
+    let console = document.getElementById("consoleSelect").value;
+    let img = document.getElementById("consoleImage");
+
+    if(console=="1"){
+        img.src="images/tv1.jpg";
+    }
+    else if(console=="2"){
+        img.src="images/tv2.jpg";
+    }
+    else if(console=="3"){
+        img.src="images/tv3.jpg";
+    }
+    else if(console=="4"){
+        img.src="images/tv4.jpg";
+    }
+    else if(console=="5"){
+        img.src="images/tv5.jpg";
+    }
+}
+</script>
 </body>
 </html>
 

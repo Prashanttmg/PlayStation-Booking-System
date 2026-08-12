@@ -1,3 +1,4 @@
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,6 @@
     <link rel="stylesheet" href="landing.css">
 </head>
 <body>
-    <?php include 'header.php'; ?>
     <section class="landing">
         <div class="overlay"></div>
         <div class="content">
