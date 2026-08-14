@@ -36,7 +36,6 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
         .sidebar h2{
             color:#c9a84c;
         }
-
         .sidebar a{
             display:block;
             color:white;
@@ -89,14 +88,14 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
 </head>
 <body>
     <div class="sidebar">
-    <h2>Admin</h2>
+        <h2>Admin</h2>
 
-    <a href="admin_dashboard.php">Dashboard</a>
-    <a href="manage_users.php">Users</a>
-    <a href="manage_bookings.php">Bookings</a>
-    <a href="manage_tournaments.php">Tournaments</a>
-    <a href="logout.php">Logout</a>
-</div>
+        <a href="admin_dashboard.php">Dashboard</a>
+        <a href="manage_users.php">Users</a>
+        <a href="slots.php">Slots</a>
+        <a href="manage_tournaments.php">Tournaments</a>
+        <a href="logout.php">Logout</a>
+    </div>
 
 <div class="main">
 
@@ -127,7 +126,7 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
         <tr>
             <th>ID</th>
             <th>User</th>
-            <th>TV</th>
+            <th>Console</th>
             <th>Date</th>
             <th>Time</th>
             <th>Players</th>
@@ -145,7 +144,7 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
         ?>
         <tr>
             <td><?php echo $row['BookingID']; ?></td>
-            <td><?php echo $row['UserID']; ?></td>
+            <td><?php echo $row['FullName']; ?></td>
             <td><?php echo $row['ConsoleID']; ?></td>
             <td><?php echo $row['BookingDate']; ?></td>
             <td><?php echo $row['StartTime']; ?></td>

@@ -1,4 +1,22 @@
 <?php include 'header.php'; ?>
+<?php include 'config.php'; 
+$slots = [];
+$slots = [];
+$result = mysqli_query($conn,"SELECT * FROM slots");
+
+while($row = mysqli_fetch_assoc($result)){
+    $slots[$row['TimeSlot']][$row['DayName']] = [
+        'status' => $row['Status'],
+        'name' => $row['BookedBy']
+    ];
+}
+while($row = mysqli_fetch_assoc($result)){
+    $slots[$row['TimeSlot']][$row['DayName']] = [
+        'status' => $row['Status'],
+        'name' => $row['FullName']
+    ];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +72,52 @@
             <img src="images/fortnite.jpg" alt="Call of Duty">
             <img src="images/fall.jpg" alt="Call of Duty">
             <img src="images/ghost.jpg" alt="Call of Duty">
+        </div>
+</section>
+    <section class="availability-section">
+        <h2 class="availability-title">AVAILABLE SLOTS</h2>
+        <div class="schedule">
+            <div class="schedule-header"></div>
+            <div class="schedule-header">Mon</div>
+            <div class="schedule-header">Tue</div>
+            <div class="schedule-header">Wed</div>
+            <div class="schedule-header">Thu</div>
+            <div class="schedule-header">Fri</div>
+            <div class="schedule-header">Sat</div>
+            <div class="schedule-header">Sun</div>
+            <?php
+            $times = [
+            '12 PM - 1 PM',
+            '1 PM - 2 PM',
+            '2 PM - 3 PM',
+            '3 PM - 4 PM',
+            '4 PM - 5 PM',
+            '5 PM - 6 PM',
+            '6 PM - 7 PM',
+            '7 PM - 8 PM',
+            '8 PM - 9 PM'
+            ];
+            $days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+            foreach($times as $time)
+            {
+                echo "<div class='time'>$time</div>";
+                foreach($days as $day)
+                {
+                    $data = $slots[$time][$day] ?? [
+                        'status' => 'Available',
+                        'name' => ''
+                    ];
+
+                    $class = ($data['status'] == 'Booked')
+                    ? 'booked'
+                    : 'available';
+                    $text = ($data['status'] == 'Booked')
+                    ? $data['name']
+                    : '';
+                    echo "<div class='$class'>$text</div>";
+                }
+            }
+            ?>
         </div>
     </section>
     <section class="console-section" id="Console">

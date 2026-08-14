@@ -133,7 +133,7 @@ if(isset($_POST['book'])){
                 <option value="14:00:00">2:00 PM</option>
             </select>
 
-            <label>Duration (hours)</label>
+            <label>Num of Players</label>
             <input type="number" name="duration" min="1" max="4" required>
 
             <button type="submit" name="book">Book Now</button>

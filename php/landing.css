@@ -107,6 +107,61 @@ body{
     transform:scale(1.03);
     z-index:1;
 }
+.availability-section{
+    padding:80px 10%;
+    background:#111;
+    text-align:center;
+}
+
+.availability-title{
+    color:#c9a84c;
+    font-size:40px;
+    margin-bottom:30px;
+    font-family:'Orbitron',sans-serif;
+}
+
+.schedule{
+    display:grid;
+    grid-template-columns:100px repeat(7,1fr);
+    gap:4px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.schedule-header,
+.time{
+    background:#222;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:50px;
+}
+.cell{
+    height:50px;
+    border-radius:4px;
+}
+.available{
+    background:#1b1b1b;
+    border:1px solid #444;
+}
+.booked{
+    background:#c9a84c;
+}
+.cell{
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    color:white;
+    font-weight:600;
+    text-align:center;
+}
+.booked{
+    background:#c9a84c;
+    color:black;
+}
 .console-section{
     background:#000;
     padding:80px 5%;

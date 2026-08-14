@@ -55,7 +55,7 @@ if(session_status() == PHP_SESSION_NONE){
             color:#c9a84c;
         }
         .logo{
-            margin:0 60px;
+            margin:0 40px;
         }
         .logo img{
             height:60px;
@@ -117,7 +117,7 @@ if(session_status() == PHP_SESSION_NONE){
             background:#c9a84c;
             color:black;
         }
-        .user-menu:hover .dropdown{
+        .user-menu.active .dropdown{
             display:block;
         }
     </style>
@@ -172,6 +172,8 @@ if(session_status() == PHP_SESSION_NONE){
     </header>
     <script>
 const header = document.querySelector('.header');
+const userBtn = document.querySelector('.user-btn');
+const userMenu = document.querySelector('.user-menu');
 window.addEventListener('scroll', () => {
     if(window.scrollY > 50){
         header.classList.add('scrolled');
@@ -179,5 +181,14 @@ window.addEventListener('scroll', () => {
         header.classList.remove('scrolled');
     }
 });
+if(userBtn && userMenu){
+    userBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        userMenu.classList.toggle('active');
+    });
+    document.addEventListener('click', function(e){
+        userMenu.classList.remove('active');
+    });
+}
 </script>
 </body>
