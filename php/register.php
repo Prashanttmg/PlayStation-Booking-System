@@ -1,3 +1,43 @@
+<?php
+include 'config.php';
+
+if(isset($_POST['submit']))
+{
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $password = $_POST['password'];
+    $cpassword = $_POST['cpassword'];
+
+    if($password != $cpassword)
+    {
+        echo "<script>alert('Passwords do not match');</script>";
+    }
+    else
+    {
+        $check = mysqli_query($conn,
+        "SELECT * FROM user WHERE Email='$email'");
+        if(mysqli_num_rows($check) > 0)
+        {
+            echo "<script>alert('Email already exists');</script>";
+        }
+        else
+        {
+            mysqli_query($conn,"
+            INSERT INTO user
+            (FullName, Email, Password, Phone, Role)
+            VALUES
+            ('$name','$email','$password','$phone','user')
+            ");
+
+            echo "<script>
+                alert('Registration Successful');
+                window.location='login.php';
+            </script>";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,11 +126,10 @@
             <input type="text" name="phone" id=""><br>
             <label for="Password">Password</label><br>
             <input type="password" name="password" id=""><br>
-            <label for="Cpassword">
             <label for="Cpassword">Confirm Password</label><br>
             <input type="password" name="cpassword" id=""><br>
             <input type="checkbox" name="terms" id="term">I agree with the Terms & Conditions <br>
-            <button name="submit">Register</button>
+            <button type="submit" name="submit">Register</button>
             <p id="login">Already have an account? <a href="login.php">Login Here</a></p>
         </form>
         </div>

@@ -92,7 +92,7 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
 
         <a href="admin_dashboard.php">Dashboard</a>
         <a href="manage_users.php">Users</a>
-        <a href="slots.php">Slots</a>
+        <a href="slots.php">Approve Bookings</a>
         <a href="manage_tournaments.php">Tournaments</a>
         <a href="logout.php">Logout</a>
     </div>
@@ -120,7 +120,7 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
 
     </div>
 
-    <h2>Recent Bookings</h2>
+    <h2>Recent Bookings Request</h2>
 
     <table>
         <tr>
