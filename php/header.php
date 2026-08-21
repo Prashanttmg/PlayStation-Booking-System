@@ -149,7 +149,7 @@ if(session_status() == PHP_SESSION_NONE){
                 }
                 ?>
                 <a href="tournaments.php">Tournament</a>
-                <a href="contact.php">Contact</a>
+                <a href="index.php#contact">Contact</a>
             </div>
             <div class="login">
                 <?php if(isset($_SESSION['UserID'])){ ?>

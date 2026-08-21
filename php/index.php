@@ -153,6 +153,22 @@ while($row = mysqli_fetch_assoc($result)){
             </div>
         </div>
     </section>
+    <section class="contact-section" id="contact">
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.9051900223117!2d85.34636699999999!3d27.65840490000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1702f6b6e59f%3A0x6b44a504fb662924!2sNamuz%20Playstation!5e0!3m2!1sen!2snp!4v1786773909703!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+        </div>
+        <div class="contact-content">
+            <h2>CONTACT US</h2>
+            <p>Book your favorite PlayStation games and gaming sessions with ease.</p>
+
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> Imadol, Lalitpur, Nepal</p>
+                <p><i class="fas fa-phone"></i> +977 9763601763</p>
+                <p><i class="fas fa-envelope"></i> info@namuzplaystation.com</p>
+            </div>
+        </div>
+    </section>
     <?php include 'footer.php'; ?>
 </body>
 </html>

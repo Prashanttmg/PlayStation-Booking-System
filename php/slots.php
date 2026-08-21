@@ -163,7 +163,7 @@ button:hover{
 
     <a href="admin_dashboard.php">Dashboard</a>
     <a href="manage_users.php">Users</a>
-    <a href="slots.php">Slots</a>
+    <a href="slots.php">Approve Bookings</a>
     <a href="manage_tournaments.php">Tournaments</a>
     <a href="logout.php">Logout</a>
 </div>

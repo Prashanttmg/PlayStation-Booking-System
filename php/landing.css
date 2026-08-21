@@ -200,3 +200,55 @@ body{
     color:#c9a84c;
     margin-bottom:10px;
 }
+.contact-section{
+    display: flex;
+    gap:40px;
+    width: 100%;
+    min-height:500px;
+    background:#111;
+    color:white;
+    padding:60px;
+}
+
+.contact-content h2{
+    color:#d4af37;
+    font-size:40px;
+    margin-bottom:20px;
+    letter-spacing:3px;
+}
+
+.contact-content p{
+    font-size:18px;
+    line-height:1.8;
+}
+
+.contact-info{
+    margin-top:25px;
+}
+
+.contact-info p{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin:15px 0;
+}
+
+.contact-info i{
+    color:#d4af37;
+    font-size:20px;
+}
+
+.social-icons{
+    margin-top:25px;
+}
+
+.social-icons a{
+    color:#d4af37;
+    font-size:28px;
+    margin-right:20px;
+    transition:.3s;
+}
+
+.social-icons a:hover{
+    color:white;
+}
