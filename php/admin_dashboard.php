@@ -10,6 +10,32 @@ if(!isset($_SESSION['Role']) || $_SESSION['Role'] != 'admin'){
 $user_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM user"));
 $booking_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM booking"));
 $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament"));
+
+if(isset($_GET['approve']))
+{
+    $id = $_GET['approve']; 
+    mysqli_query($conn,"
+    UPDATE booking
+    SET Status='Approved'
+    WHERE BookingID='$id'
+    ");
+
+    header("Location: admin_dashboard.php");
+    exit();
+}
+
+if(isset($_GET['delete']))
+{
+    $id = $_GET['delete'];
+
+    mysqli_query($conn,"
+    DELETE FROM booking
+    WHERE BookingID='$id'
+    ");
+
+    header("Location: admin_dashboard.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -84,6 +110,23 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
             background:#c9a84c;
             color:black;
         }
+        .approve-btn{
+    background:green;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.delete-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -92,7 +135,6 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
 
         <a href="admin_dashboard.php">Dashboard</a>
         <a href="manage_users.php">Users</a>
-        <a href="slots.php">Approve Bookings</a>
         <a href="manage_tournaments.php">Tournaments</a>
         <a href="logout.php">Logout</a>
     </div>
@@ -130,6 +172,8 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
             <th>Date</th>
             <th>Time</th>
             <th>Players</th>
+            <th>Status</th>
+            <th>Action</th>
         </tr>
 
         <?php
@@ -137,7 +181,8 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
         SELECT booking.*, user.FullName
         FROM booking
         JOIN user ON booking.UserID = user.UserID
-        ORDER BY booking.BookingID DESC
+        ORDER BY booking.Status='Pending'
+        ORDER BY booking.bookingID DESC
         ");
 
         while($row = mysqli_fetch_assoc($result)){
@@ -149,6 +194,32 @@ $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament
             <td><?php echo $row['BookingDate']; ?></td>
             <td><?php echo $row['StartTime']; ?></td>
             <td><?php echo $row['Duration']; ?></td>
+            <td><?php echo $row['Status']; ?></td>
+
+<td>
+
+<?php if($row['Status']=="Pending"){ ?>
+
+<a href="?approve=<?php echo $row['BookingID']; ?>">
+    <button class="approve-btn">
+        Approve
+    </button>
+</a>
+
+<a href="?delete=<?php echo $row['BookingID']; ?>"
+onclick="return confirm('Delete booking?')">
+    <button class="delete-btn">
+        Delete
+    </button>
+</a>
+
+<?php } else { ?>
+
+Approved
+
+<?php } ?>
+
+</td>
         </tr>
         <?php } ?>
 

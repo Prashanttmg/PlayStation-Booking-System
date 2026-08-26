@@ -16,9 +16,9 @@ if(isset($_POST['book'])){
     $duration = $_POST['duration'];
 
     $sql = "INSERT INTO booking
-            (UserID, ConsoleID, BookingDate, StartTime, Duration)
+            (UserID, ConsoleID, BookingDate, StartTime, Duration, Status)
             VALUES
-            ('$userid','$console_id','$booking_date','$start_time','$duration')";
+            ('$userid','$console_id','$booking_date','$start_time','$duration', '')";
 
     if(mysqli_query($conn,$sql)){
         echo "<script>alert('Booking Successful');</script>";
