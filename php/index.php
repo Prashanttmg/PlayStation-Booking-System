@@ -1,19 +1,62 @@
 <?php include 'header.php'; ?>
 <?php include 'config.php'; 
 $slots = [];
-$slots = [];
-$result = mysqli_query($conn,"SELECT * FROM slots");
 
-while($row = mysqli_fetch_assoc($result)){
-    $slots[$row['TimeSlot']][$row['DayName']] = [
-        'status' => $row['Status'],
-        'name' => $row['BookedBy']
-    ];
-}
-while($row = mysqli_fetch_assoc($result)){
-    $slots[$row['TimeSlot']][$row['DayName']] = [
-        'status' => $row['Status'],
-        'name' => $row['FullName']
+$result = mysqli_query($conn,"
+SELECT booking.*, user.FullName
+FROM booking
+JOIN user ON booking.UserID = user.UserID
+WHERE booking.Status='Approved'
+");
+
+while($row = mysqli_fetch_assoc($result))
+{
+    $date = $row['BookingDate'];
+    $day = date('D', strtotime($date));
+
+    $time = '';
+
+    switch($row['StartTime'])
+    {
+        case '10:00:00':
+            $time = '10 AM - 11 AM';
+            break;
+        case '11:00:00':
+            $time = '11 AM - 12 PM';
+            break;
+        case '12:00:00':
+            $time = '12 PM - 1 PM';
+            break;
+        case '13:00:00':
+            $time = '1 PM - 2 PM';
+            break;
+        case '14:00:00':
+            $time = '2 PM - 3 PM';
+            break;
+        case '15:00:00':
+            $time = '3 PM - 4 PM';
+            break;
+        case '16:00:00':
+            $time = '4 PM - 5 PM';
+            break;
+        case '17:00:00':
+            $time = '5 PM - 6 PM';
+            break;
+        case '18:00:00':
+            $time = '6 PM - 7 PM';
+            break;
+        case '19:00:00':
+            $time = '7 PM - 8 PM';
+            break;
+        case '20:00:00':
+            $time = '8 PM - 9 PM';
+            break;
+    }
+    $slots[$time][$day] = [
+        'status' => 'Booked',
+        'name' => $row['FullName'] .
+                  "<br>Console ".$row['ConsoleID'].
+                  " (".$row['Duration']." Player)"
     ];
 }
 ?>

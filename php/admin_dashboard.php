@@ -8,7 +8,7 @@ if(!isset($_SESSION['Role']) || $_SESSION['Role'] != 'admin'){
 }
 
 $user_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM user"));
-$booking_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM booking"));
+$booking_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM booking WHERE Status='Pending'"));
 $tournament_count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tournament"));
 
 if(isset($_GET['approve']))
@@ -181,7 +181,7 @@ if(isset($_GET['delete']))
         SELECT booking.*, user.FullName
         FROM booking
         JOIN user ON booking.UserID = user.UserID
-        ORDER BY booking.Status='Pending'
+        WHERE booking.Status='Pending'
         ORDER BY booking.bookingID DESC
         ");
 
@@ -195,37 +195,27 @@ if(isset($_GET['delete']))
             <td><?php echo $row['StartTime']; ?></td>
             <td><?php echo $row['Duration']; ?></td>
             <td><?php echo $row['Status']; ?></td>
-
-<td>
-
-<?php if($row['Status']=="Pending"){ ?>
-
-<a href="?approve=<?php echo $row['BookingID']; ?>">
-    <button class="approve-btn">
-        Approve
-    </button>
-</a>
-
-<a href="?delete=<?php echo $row['BookingID']; ?>"
-onclick="return confirm('Delete booking?')">
-    <button class="delete-btn">
-        Delete
-    </button>
-</a>
-
-<?php } else { ?>
-
-Approved
-
-<?php } ?>
-
-</td>
+            <td>
+            <?php if($row['Status']=="Pending"){ ?>
+            <a href="?approve=<?php echo $row['BookingID']; ?>"
+            onclick="return confirm('Approve this Booking?')">
+                <button class="approve-btn">
+                    Approve
+                </button>
+            </a>
+            <a href="?delete=<?php echo $row['BookingID']; ?>"
+            onclick="return confirm('Delete booking?')">
+                <button class="delete-btn">
+                    Delete
+                </button>
+            </a>
+            <?php } else { ?>
+            Approved
+            <?php } ?>
+            </td>
         </tr>
         <?php } ?>
-
     </table>
-
 </div>
-
 </body>
 </html>

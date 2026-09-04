@@ -18,7 +18,7 @@ if(isset($_POST['book'])){
     $sql = "INSERT INTO booking
             (UserID, ConsoleID, BookingDate, StartTime, Duration, Status)
             VALUES
-            ('$userid','$console_id','$booking_date','$start_time','$duration', '')";
+            ('$userid','$console_id','$booking_date','$start_time','$duration', 'Pending')";
 
     if(mysqli_query($conn,$sql)){
         echo "<script>alert('Booking Successful');</script>";
@@ -131,6 +131,12 @@ if(isset($_POST['book'])){
                 <option value="12:00:00">12:00 PM</option>
                 <option value="13:00:00">1:00 PM</option>
                 <option value="14:00:00">2:00 PM</option>
+                <option value="12:00:00">3:00 PM</option>
+                <option value="13:00:00">4:00 PM</option>
+                <option value="14:00:00">5:00 PM</option>
+                <option value="12:00:00">6:00 PM</option>
+                <option value="13:00:00">7:00 PM</option>
+                <option value="14:00:00">8:00 PM</option>
             </select>
 
             <label>Num of Players</label>
