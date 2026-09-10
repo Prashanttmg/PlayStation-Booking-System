@@ -12,7 +12,6 @@
         footer h2{
             font-size:14px;
             font-weight:400;
-            margin-bottom:8px;
             color:#b8b1a0;
         }
         .social-icons{

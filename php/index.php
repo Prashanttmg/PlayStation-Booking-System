@@ -68,6 +68,8 @@ while($row = mysqli_fetch_assoc($result))
     <title>Namuz PlayStation</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="landing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 </head>
 <body>
     <section class="landing">
@@ -120,6 +122,13 @@ while($row = mysqli_fetch_assoc($result))
     <section class="availability-section">
         <h2 class="availability-title">AVAILABLE SLOTS</h2>
         <div class="schedule">
+            <div class="calendar-toolbar">
+                <button id="datePickerBtn">
+                    <i class="fas fa-calendar-alt"></i> Choose Date
+                </button>
+                <input type="text" id="datePicker" style="display:none;">
+            </div>
+            <div id="calendar"></div>
             <div class="schedule-header"></div>
             <div class="schedule-header">Mon</div>
             <div class="schedule-header">Tue</div>
@@ -213,5 +222,30 @@ while($row = mysqli_fetch_assoc($result))
         </div>
     </section>
     <?php include 'footer.php'; ?>
+    <script>
+    var calendar = new FullCalendar.Calendar(
+    document.getElementById('calendar'),
+    {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+            left: '',
+            center: 'title',
+            right: 'timeGridWeek,timeGridDay'
+        }
+    }
+);
+calendar.render();
+flatpickr("#datePicker", {
+    dateFormat: "Y-m-d",
+    defaultDate: new Date(),
+    onChange: function(selectedDates, dateStr) {
+        calendar.gotoDate(dateStr);
+    }
+});
+document.getElementById("datePickerBtn").addEventListener("click", function() {
+    document.getElementById("datePicker")._flatpickr.open();
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 </html>
