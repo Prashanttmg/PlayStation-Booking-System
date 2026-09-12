@@ -261,18 +261,3 @@ body{
     padding:8px 12px;
     border-radius:5px;
 }
-.calendar-toolbar{
-    display:flex;
-    justify-content:center;
-    margin-bottom:15px;
-}
-
-#datePickerBtn{
-    background:#c9a84c;
-    color:#000;
-    border:none;
-    padding:10px 20px;
-    border-radius:5px;
-    cursor:pointer;
-    font-weight:bold;
-}

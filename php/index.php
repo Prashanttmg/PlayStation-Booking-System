@@ -68,8 +68,6 @@ while($row = mysqli_fetch_assoc($result))
     <title>Namuz PlayStation</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="landing.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 </head>
 <body>
     <section class="landing">
@@ -122,11 +120,9 @@ while($row = mysqli_fetch_assoc($result))
     <section class="availability-section">
         <h2 class="availability-title">AVAILABLE SLOTS</h2>
         <div class="schedule">
-            <div class="calendar-toolbar">
-                <button id="datePickerBtn">
-                    <i class="fas fa-calendar-alt"></i> Choose Date
-                </button>
-                <input type="text" id="datePicker" style="display:none;">
+            <div class="calendar-controls">
+                <label>Select Date:</label>
+                <input type="date" id="calendarDate">
             </div>
             <div id="calendar"></div>
             <div class="schedule-header"></div>
@@ -223,29 +219,26 @@ while($row = mysqli_fetch_assoc($result))
     </section>
     <?php include 'footer.php'; ?>
     <script>
-    var calendar = new FullCalendar.Calendar(
-    document.getElementById('calendar'),
-    {
-        initialView: 'timeGridWeek',
+    document.addEventListener('DOMContentLoaded', function () {
+
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridDay',
+
         headerToolbar: {
             left: '',
             center: 'title',
-            right: 'timeGridWeek,timeGridDay'
+            right: 'timeGridDay,timeGridWeek'
         }
-    }
-);
-calendar.render();
-flatpickr("#datePicker", {
-    dateFormat: "Y-m-d",
-    defaultDate: new Date(),
-    onChange: function(selectedDates, dateStr) {
-        calendar.gotoDate(dateStr);
-    }
-});
-document.getElementById("datePickerBtn").addEventListener("click", function() {
-    document.getElementById("datePicker")._flatpickr.open();
+    });
+
+    calendar.render();
+
+    document.getElementById('calendarDate').addEventListener('change', function () {
+        calendar.gotoDate(this.value);
+    });
 });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 </html>
