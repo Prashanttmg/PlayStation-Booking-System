@@ -120,11 +120,6 @@ while($row = mysqli_fetch_assoc($result))
     <section class="availability-section">
         <h2 class="availability-title">AVAILABLE SLOTS</h2>
         <div class="schedule">
-            <div class="calendar-controls">
-                <label>Select Date:</label>
-                <input type="date" id="calendarDate">
-            </div>
-            <div id="calendar"></div>
             <div class="schedule-header"></div>
             <div class="schedule-header">Mon</div>
             <div class="schedule-header">Tue</div>

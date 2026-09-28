@@ -14,14 +14,42 @@ if(isset($_POST['book'])){
     $booking_date = $_POST['booking_date'];
     $start_time = $_POST['start_time'];
     $duration = $_POST['duration'];
+    $today = date("Y-m-d");
+    $check = mysqli_query($conn,"
+    SELECT *
+    FROM booking
+    WHERE ConsoleID='$console_id'
+    AND BookingDate='$booking_date'
+    AND StartTime='$start_time'
+    AND Status IN ('Pending','Approved')
+    ");
 
+    if(mysqli_num_rows($check) > 0){
+        die("<script>
+        alert('This console is already booked for the selected date and time.');
+        window.history.back();
+        </script>");
+    }
+    if($booking_date < $today){
+        die("<script>alert('Past dates are not allowed');window.history.back();</script>");
+    }
+
+    if($booking_date == $today){
+        if($start_time <= date("H:i:s")){
+            die("<script>alert('Past time slots are not allowed');window.history.back();</script>");
+        }
+    }
     $sql = "INSERT INTO booking
             (UserID, ConsoleID, BookingDate, StartTime, Duration, Status)
             VALUES
             ('$userid','$console_id','$booking_date','$start_time','$duration', 'Pending')";
 
     if(mysqli_query($conn,$sql)){
-        echo "<script>alert('Booking Successful');</script>";
+        echo "<script>
+        alert('Booking request submitted successfully. Waiting for admin approval.');
+        window.location='booking.php';
+        </script>";
+        exit();
     }else{
         echo "<script>alert('Booking Failed');</script>";
     }
@@ -122,7 +150,7 @@ if(isset($_POST['book'])){
             </select>
 
             <label>Date</label>
-            <input type="date" name="booking_date" required>
+            <input type="date" name="booking_date" min="<?php echo date('Y-m-d'); ?>" required>
 
             <label>Start Time</label>
             <select name="start_time" required>
@@ -131,12 +159,12 @@ if(isset($_POST['book'])){
                 <option value="12:00:00">12:00 PM</option>
                 <option value="13:00:00">1:00 PM</option>
                 <option value="14:00:00">2:00 PM</option>
-                <option value="12:00:00">3:00 PM</option>
-                <option value="13:00:00">4:00 PM</option>
-                <option value="14:00:00">5:00 PM</option>
-                <option value="12:00:00">6:00 PM</option>
-                <option value="13:00:00">7:00 PM</option>
-                <option value="14:00:00">8:00 PM</option>
+                <option value="15:00:00">3:00 PM</option>
+                <option value="16:00:00">4:00 PM</option>
+                <option value="17:00:00">5:00 PM</option>
+                <option value="18:00:00">6:00 PM</option>
+                <option value="19:00:00">7:00 PM</option>
+                <option value="20:00:00">8:00 PM</option>
             </select>
 
             <label>Num of Players</label>
