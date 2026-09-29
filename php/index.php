@@ -1,62 +1,24 @@
 <?php include 'header.php'; ?>
-<?php include 'config.php'; 
-$slots = [];
+<?php
+include 'config.php';
 
-$result = mysqli_query($conn,"
-SELECT booking.*, user.FullName
-FROM booking
-JOIN user ON booking.UserID = user.UserID
-WHERE booking.Status='Approved'
+$events = [];
+
+$result = mysqli_query($conn, "
+    SELECT booking.*, user.FullName
+    FROM booking
+    JOIN user ON booking.UserID = user.UserID
+    WHERE booking.Status = 'Approved'
 ");
 
-while($row = mysqli_fetch_assoc($result))
-{
-    $date = $row['BookingDate'];
-    $day = date('D', strtotime($date));
+while ($row = mysqli_fetch_assoc($result)) {
+    $start = $row['BookingDate'] . 'T' . $row['StartTime'];
+    $end   = date('Y-m-d\TH:i:s', strtotime($start . ' +1 hour'));
 
-    $time = '';
-
-    switch($row['StartTime'])
-    {
-        case '10:00:00':
-            $time = '10 AM - 11 AM';
-            break;
-        case '11:00:00':
-            $time = '11 AM - 12 PM';
-            break;
-        case '12:00:00':
-            $time = '12 PM - 1 PM';
-            break;
-        case '13:00:00':
-            $time = '1 PM - 2 PM';
-            break;
-        case '14:00:00':
-            $time = '2 PM - 3 PM';
-            break;
-        case '15:00:00':
-            $time = '3 PM - 4 PM';
-            break;
-        case '16:00:00':
-            $time = '4 PM - 5 PM';
-            break;
-        case '17:00:00':
-            $time = '5 PM - 6 PM';
-            break;
-        case '18:00:00':
-            $time = '6 PM - 7 PM';
-            break;
-        case '19:00:00':
-            $time = '7 PM - 8 PM';
-            break;
-        case '20:00:00':
-            $time = '8 PM - 9 PM';
-            break;
-    }
-    $slots[$time][$day] = [
-        'status' => 'Booked',
-        'name' => $row['FullName'] .
-                  "<br>Console ".$row['ConsoleID'].
-                  " (".$row['Duration']." Player)"
+    $events[] = [
+        'title' => $row['FullName'] . ' | Console ' . $row['ConsoleID'] . ' (' . $row['Duration'] . ' Player)',
+        'start' => $start,
+        'end'   => $end
     ];
 }
 ?>
@@ -68,6 +30,8 @@ while($row = mysqli_fetch_assoc($result))
     <title>Namuz PlayStation</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="landing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 </head>
 <body>
     <section class="landing">
@@ -115,53 +79,14 @@ while($row = mysqli_fetch_assoc($result))
             <img src="images/fortnite.jpg" alt="Call of Duty">
             <img src="images/fall.jpg" alt="Call of Duty">
             <img src="images/ghost.jpg" alt="Call of Duty">
+            <img src="images/mk11.jpg" alt="Mortal Kombat 11">
         </div>
 </section>
     <section class="availability-section">
-        <h2 class="availability-title">AVAILABLE SLOTS</h2>
-        <div class="schedule">
-            <div class="schedule-header"></div>
-            <div class="schedule-header">Mon</div>
-            <div class="schedule-header">Tue</div>
-            <div class="schedule-header">Wed</div>
-            <div class="schedule-header">Thu</div>
-            <div class="schedule-header">Fri</div>
-            <div class="schedule-header">Sat</div>
-            <div class="schedule-header">Sun</div>
-            <?php
-            $times = [
-            '12 PM - 1 PM',
-            '1 PM - 2 PM',
-            '2 PM - 3 PM',
-            '3 PM - 4 PM',
-            '4 PM - 5 PM',
-            '5 PM - 6 PM',
-            '6 PM - 7 PM',
-            '7 PM - 8 PM',
-            '8 PM - 9 PM'
-            ];
-            $days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-            foreach($times as $time)
-            {
-                echo "<div class='time'>$time</div>";
-                foreach($days as $day)
-                {
-                    $data = $slots[$time][$day] ?? [
-                        'status' => 'Available',
-                        'name' => ''
-                    ];
-
-                    $class = ($data['status'] == 'Booked')
-                    ? 'booked'
-                    : 'available';
-                    $text = ($data['status'] == 'Booked')
-                    ? $data['name']
-                    : '';
-                    echo "<div class='$class'>$text</div>";
-                }
-            }
-            ?>
-        </div>
+        <h2 class="availability-title">
+            PLAYSTATION BOOKING CALENDAR
+        </h2>
+        <div id="calendar"></div>
     </section>
     <section class="console-section" id="Console">
         <h2 class="console-title">CONSOLE YOU CAN ENJOY</h2>
@@ -214,26 +139,39 @@ while($row = mysqli_fetch_assoc($result))
     </section>
     <?php include 'footer.php'; ?>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-
+document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridDay',
+        initialView: window.innerWidth < 768 ? 'timeGridDay' : 'timeGridWeek',
+        height: 'auto',
+        allDaySlot: false,
+        nowIndicator: true,
+
+        // Time axis: 10 AM to 8 PM (last slot 8-9 PM), one row per hour
+        slotMinTime: "10:00:00",
+        slotMaxTime: "21:00:00",
+        slotDuration: "01:00:00",
+        slotLabelInterval: "01:00",
+        slotLabelFormat: { hour: 'numeric', hour12: true, meridiem: 'short' },
+
+        dayHeaderFormat: { weekday: 'short', day: 'numeric', month: 'short' },
+        eventTimeFormat: { hour: 'numeric', minute: '2-digit', hour12: true, meridiem: 'short' },
+        slotEventOverlap: false,
+        expandRows: true,
 
         headerToolbar: {
-            left: '',
+            left: 'prev,next today',
             center: 'title',
-            right: 'timeGridDay,timeGridWeek'
-        }
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        buttonText: { today: 'Today', month: 'Month', week: 'Week', day: 'Day' },
+
+        events: <?php echo json_encode($events, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>
     });
 
     calendar.render();
-
-    document.getElementById('calendarDate').addEventListener('change', function () {
-        calendar.gotoDate(this.value);
-    });
 });
-</script>
+</script>l
 </body>
 </html>

@@ -261,3 +261,140 @@ body{
     padding:8px 12px;
     border-radius:5px;
 }
+#calendar{
+    max-width: 95%;
+    margin: 40px auto;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.fc {
+    color: white;
+}
+
+.fc-toolbar-title{
+    color:#c9a84c;
+    font-family:'Orbitron',sans-serif;
+}
+
+.fc-button{
+    background:#c9a84c !important;
+    border:none !important;
+    color:black !important;
+}
+
+.fc-event{
+    background:#28a745 !important;
+    border:none !important;
+}
+/* ===== BOOKING CALENDAR ===== */
+.availability-section {
+    padding: 60px 20px;
+}
+
+#calendar {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #0f1118;
+    border: 1px solid #2a2f45;
+    border-radius: 14px;
+    box-shadow: 0 0 30px rgba(0, 112, 255, 0.15);
+
+    --fc-page-bg-color: #0f1118;
+    --fc-border-color: #2a2f45;
+    --fc-neutral-bg-color: #171a26;
+    --fc-today-bg-color: rgba(0, 112, 255, 0.10);
+    --fc-now-indicator-color: #ff3b5c;
+    --fc-event-bg-color: #0070ff;
+    --fc-event-border-color: #0070ff;
+    --fc-event-text-color: #fff;
+    --fc-button-bg-color: #171a26;
+    --fc-button-border-color: #2a2f45;
+    --fc-button-hover-bg-color: #0070ff;
+    --fc-button-hover-border-color: #0070ff;
+    --fc-button-active-bg-color: #0070ff;
+    --fc-button-active-border-color: #0070ff;
+    color: #e8eaf2;
+}
+
+/* Toolbar */
+#calendar .fc-toolbar-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: #fff;
+}
+#calendar .fc-button {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border-radius: 8px;
+    box-shadow: none !important;
+}
+
+/* Day headers */
+#calendar .fc-col-header-cell {
+    background: #171a26;
+    padding: 10px 0;
+}
+#calendar .fc-col-header-cell-cushion {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Time labels on the left */
+#calendar .fc-timegrid-slot {
+    height: 4.2em;
+}
+#calendar .fc-timegrid-slot-label-cushion {
+    color: #9aa3c0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding-right: 10px;
+}
+#calendar .fc-timegrid-axis {
+    background: #171a26;
+}
+
+/* Grid lines */
+#calendar .fc-theme-standard td,
+#calendar .fc-theme-standard th,
+#calendar .fc-theme-standard .fc-scrollgrid {
+    border-color: #2a2f45;
+}
+
+/* Booked events */
+#calendar .fc-timegrid-event {
+    border-radius: 8px;
+    border: none;
+    border-left: 4px solid #00d4ff;
+    background: linear-gradient(135deg, #0070ff, #5a2dff);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    padding: 3px 6px;
+    font-size: 0.75rem;
+    line-height: 1.3;
+}
+#calendar .fc-event-main {
+    overflow: hidden;
+}
+
+/* Month view */
+#calendar .fc-daygrid-day-number {
+    color: #cfd4e8;
+    text-decoration: none;
+}
+#calendar .fc-daygrid-event {
+    border-radius: 6px;
+    padding: 2px 5px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    #calendar { padding: 10px; }
+    #calendar .fc-toolbar { flex-direction: column; gap: 10px; }
+    #calendar .fc-toolbar-title { font-size: 1rem; }
+    #calendar .fc-timegrid-slot { height: 3.4em; }
+}
