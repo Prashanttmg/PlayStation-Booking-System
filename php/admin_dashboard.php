@@ -38,7 +38,6 @@ if(isset($_GET['delete']))
 }
 ?>
 <?php include 'admin_header.php'; ?>
-<div class="main">
     <h1>Welcome <?php echo $_SESSION['Name']; ?></h1>
 
     <div class="cards">
@@ -114,6 +113,5 @@ if(isset($_GET['delete']))
         </tr>
         <?php } ?>
     </table>
-</div>
 </body>
 </html>

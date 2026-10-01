@@ -8,8 +8,25 @@ if(isset($_POST['submit']))
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
+    $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    if($password != $cpassword)
+    if(empty($name) || empty($email) || empty($phone) || empty($password))
+    {
+        echo "<script>alert('All fields are required');</script>";
+    }
+    elseif(!filter_var($email,FILTER_VALIDATE_EMAIL))
+    {
+        echo "<script>alert('Invalid Email Address');</script>";
+    }
+    elseif(!preg_match('/^[0-9]{10}$/',$phone))
+    {
+        echo "<script>alert('Phone Number must be 10 digits');</script>";
+    }
+    elseif(strlen($password) < 6)
+    {
+        echo "<script>alert('Password must be at least 6 characters');</script>";
+    }
+    elseif($password != $cpassword)
     {
         echo "<script>alert('Passwords do not match');</script>";
     }
@@ -27,7 +44,7 @@ if(isset($_POST['submit']))
             INSERT INTO user
             (FullName, Email, Password, Phone, Role)
             VALUES
-            ('$name','$email','$password','$phone','user')
+            ('$name','$email','$hashed_password','$phone','user')
             "); 
             echo "<script>
                 alert('Registration Successful');
@@ -46,7 +63,7 @@ if(isset($_POST['submit']))
     <style>
         body{
     margin:0;
-    padding:20;
+    padding:20px;
     background:#111;
     font-family:Poppins,sans-serif;
     display:flex;

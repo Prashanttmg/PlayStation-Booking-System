@@ -7,32 +7,36 @@ if(isset($_POST['login'])){
     $Email = $_POST['email'];
     $Password = $_POST['password'];
 
-    $sql = "SELECT UserID, FullName, Role
+    $sql = "SELECT UserID, FullName, Role, Password
         FROM user
-        WHERE Email='$Email'
-        AND Password='$Password'";
+        WHERE Email='$Email'";
 
     $result = mysqli_query($conn,$sql);
 
     if(mysqli_num_rows($result) > 0){
 
         $row = mysqli_fetch_assoc($result);
+        if(password_verify($Password, $row['Password'])){
 
-        $_SESSION['UserID'] = $row['UserID'];
-        $_SESSION['Name'] = $row['FullName'];
-        $_SESSION['Role'] = $row['Role'];
+            $_SESSION['UserID'] = $row['UserID'];
+            $_SESSION['Name'] = $row['FullName'];
+            $_SESSION['Role'] = $row['Role'];
 
-        if($row['Role'] == 'admin'){
-            header("Location: admin_dashboard.php");
+            if($row['Role'] == 'admin'){
+                header("Location: admin_dashboard.php");
+            }
+            else{
+                header("Location: index.php");
+            }
+
+            exit();
+
+        } else {
+            echo "<script>alert('Invalid Password');</script>";
         }
-        else{
-            header("Location: index.php");
-        }
-
-        exit();
 
     } else {
-        echo "<script>alert('Invalid Login');</script>";
+        echo "<script>alert('Email not registered');</script>";
     }
 }
 ?>
@@ -114,7 +118,7 @@ if(isset($_POST['login'])){
         input[type="email"],
         input[type="password"]{
             width:90%;
-            padding:10px;
+            padding:10px; 
             background:#111;
             border:1px solid #333;
             border-radius:5px;

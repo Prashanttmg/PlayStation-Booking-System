@@ -58,6 +58,26 @@ body{
     margin-left:260px;
     padding:20px;
 }
+.cards{
+    display:flex;
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.card{
+    flex:1;
+    background:#1b1b1b;
+    border:1px solid #333;
+    border-radius:10px;
+    padding:20px;
+    text-align:center;
+}
+
+.card h2{
+    color:#c9a84c;
+    font-size:35px;
+    margin-bottom:10px;
+}
 
 table{
     width:100%;
