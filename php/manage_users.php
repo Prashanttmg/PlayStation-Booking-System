@@ -1,6 +1,7 @@
 <?php
-include 'config.php';
 session_start();
+include 'config.php';
+
 
 if(!isset($_SESSION['UserID']) || $_SESSION['Role']!='admin'){
     header("Location: login.php");
@@ -8,11 +9,40 @@ if(!isset($_SESSION['UserID']) || $_SESSION['Role']!='admin'){
 }
 
 if(isset($_GET['delete']))
-{
-    $id = $_GET['delete'];
-    mysqli_query($conn,"DELETE FROM user WHERE UserID='$id'");
-    header("Location: manage_user.php");
-}
+    {
+        $id = intval($_GET['delete']);
+        if($id == $_SESSION['UserID']){ 
+            echo "<script> alert('You cannot delete your own admin account.');
+            window.location='manage_users.php';
+            </script>"; 
+            exit(); 
+        }
+        mysqli_begin_transaction($conn); 
+        try {
+        $sql = "DELETE FROM tournament_participants WHERE UserID = $id";
+        if(!mysqli_query($conn, $sql)){ throw new Exception(mysqli_error($conn));
+        } 
+        $sql = "DELETE FROM booking WHERE UserID = $id";
+        if(!mysqli_query($conn, $sql)){ throw new Exception(mysqli_error($conn));
+        }  
+        $sql = "DELETE FROM user WHERE UserID = $id"; 
+        if(!mysqli_query($conn, $sql)){ throw new Exception(mysqli_error($conn)); 
+        }  
+        mysqli_commit($conn); 
+        echo "<script> alert('User deleted successfully.'); 
+        window.location='manage_users.php';
+        </script>"; 
+        exit(); 
+        } 
+        catch(Exception $e) 
+        {  
+            mysqli_rollback($conn); 
+            echo "<script> alert('Delete failed: " . addslashes($e->getMessage()) . "');
+            window.location='manage_users.php'; 
+            </script>"; 
+            exit(); 
+        }
+    }
 ?>
 
 <?php include 'admin_header.php'; ?>

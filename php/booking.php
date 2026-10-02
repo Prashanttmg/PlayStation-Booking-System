@@ -142,11 +142,12 @@ if(isset($_POST['book'])){
 
             <label>Select Console</label>
             <select name="console_id" id="consoleSelect" onchange="changeConsoleImage()">
-                <option value="1">Console 1 - PS5</option>
-                <option value="2">Console 2 - PS5</option>
-                <option value="3">Console 3 - PS4</option>
-                <option value="4">Console 4 - PS5</option>
-                <option value="5">Console 5 - PS3 / Nintendo</option>
+                <?php 
+                $console_result = mysqli_query($conn, "SELECT * FROM console");
+                while($console = mysqli_fetch_assoc($console_result)) {
+                    echo "<option value='{$console['ConsoleID']}'>{$console['ConsoleName']}</option>";
+                }
+                ?>
             </select>
 
             <label>Date</label>

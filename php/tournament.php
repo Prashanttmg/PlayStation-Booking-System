@@ -9,7 +9,6 @@ if(!isset($_SESSION['UserID'])){
 
 $userid = $_SESSION['UserID'];
 
-/* Join Tournament */
 if(isset($_POST['join']))
 {
     $tid = $_POST['tid'];
@@ -73,7 +72,6 @@ body{
     gap:20px;
 }
 
-/* Background video */
 .card-video{
     position:absolute;
     top:0;
@@ -87,7 +85,6 @@ body{
     pointer-events:none;
 }
 
-/* Dark overlay so text stays readable */
 .card::before{
     content:"";
     position:absolute;
@@ -104,7 +101,6 @@ body{
     opacity:1;
 }
 
-/* Keep real content above the video */
 .card-content,
 .card-image{
     position:relative;

@@ -1,6 +1,7 @@
 <?php
-include 'config.php';
 session_start();
+include 'config.php';
+
 
 if(!isset($_SESSION['UserID']) || $_SESSION['Role']!='admin'){
     header("Location: login.php");
@@ -23,7 +24,7 @@ if(isset($_GET['delete']))
 <div class="container">
 <h1>Manage Tournaments</h1>
 
-<a href="add_tournament.php" class="btn">
+<a  href="add_tournament.php" class="btn">
 Add Tournament
 </a>
 

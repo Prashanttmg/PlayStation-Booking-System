@@ -79,7 +79,7 @@ if(isset($_GET['delete']))
         FROM booking
         JOIN user ON booking.UserID = user.UserID
         WHERE booking.Status='Pending'
-        ORDER BY booking.bookingID DESC
+        ORDER BY booking.BookingID DESC
         ");
 
         while($row = mysqli_fetch_assoc($result)){
